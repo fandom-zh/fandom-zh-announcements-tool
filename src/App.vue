@@ -78,15 +78,15 @@
           ></textarea>
         </div>
         <div>
-          <label for="line">Line</label>
+          <label for="line">LINE</label>
           <textarea
             v-model="line"
             id="line"
             name="line"
             spellcheck
             rows="20"
-            title="Output for Line."
-            placeholder="Output for Line."
+            title="Output for LINE."
+            placeholder="Output for LINE."
             readonly
           ></textarea>
         </div>
@@ -104,7 +104,7 @@
           ></textarea>
         </div>
         <div>
-          <label for="Line">LQA</label>
+          <label for="lqa">LQA</label>
           <textarea
             v-model="lqa"
             id="lqa"
@@ -154,7 +154,7 @@ const updateOutput = async () => {
   let msgQQ = []
 
   if (everyone) {
-    msgDC.push('@everyone ')
+    msgDC.push('@everyone\n')
   }
   // Date
   const dayTable = {
@@ -229,7 +229,7 @@ const updateOutput = async () => {
     let urlEncoded = encodeURI(url)
     let urlDecoded = decodeURI(url)
     msgDC.push('\n' + urlDecoded)
-    msgLN.push('\n' + urlEncoded)
+    msgLN.push('\n' + urlDecoded)
     msgQQ.push('\n' + urlEncoded)
     msgTG.push('\n' + urlDecoded)
   }
@@ -239,7 +239,7 @@ const updateOutput = async () => {
   telegram = msgTG.join('\n')
   line = msgLN.join('\n')
   qq = msgQQ.join('\n')
-  lqa = 'Discord\n```md\n' + discord + '\n```\nTelegram\n```md\n' + telegram + '```\nLine\n```\n' + line + '```\nQQ\n```\n' + qq + '\n```'
+  lqa = 'Discord\n```md\n' + discord + '\n```\nTelegram\n```md\n' + telegram + '```\nLINE\n```\n' + line + '```\nQQ\n```\n' + qq + '\n```'
 }
 
 watch([$everyone, $type, $url, $date, $zhTW, $zhCN], updateOutput)
