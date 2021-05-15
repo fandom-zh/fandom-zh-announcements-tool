@@ -154,7 +154,7 @@ const updateOutput = async () => {
   let msgQQ = []
 
   if (everyone) {
-    msgDC.push('@everyone\n')
+    msgDC.push('@everyone \n')
   }
   // Date
   const dayTable = {
