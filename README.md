@@ -4,6 +4,6 @@
 
 Created by the Fandom ZH Team, this is the solution of posting announcements on multiple messaging platfroms with two language variants.
 
-Netlify: https://fdzh-announcement.netlify.app/
+Netlify: <https://fdzh-announcement.netlify.app/>
 
 Not an official Fandom product. Not owned or affiliated with Fandom, Inc.
