@@ -123,7 +123,48 @@
     <h2>Language Conversion</h2>
     <div id="lc">
       <FormWrapper title="Input">
-
+        <div>
+          <label for="target">Target Variant</label>
+          <select v-model="target" name="target" id="target">
+            <option value="zh-TW">zh-TW / 臺灣正體</option>
+            <option value="zh-CN">zh-CN / 大陆简体</option>
+          </select>
+        </div>
+        <div>
+          <label for="target">NoteTA CGroup</label>
+          wip
+        </div>
+        <br>
+        <div>
+          <label for="content">Content</label>
+          <textarea
+            v-model="content"
+            id="zh-cn"
+            name="zh-cn"
+            spellcheck
+            rows="20"
+            title="Please put the message you want to convert here. Support MediaWiki -{}- conversion settings."
+            placeholder="Please put the message you want to convert here. Support MediaWiki -{}- conversion settings."
+          ></textarea>
+        </div>
+        <div>
+          <button @click="convert()">Submit</button>
+        </div>
+      </FormWrapper>
+      <FormWrapper title="Output">
+        <div>
+          <label for="output">Conversion Output</label>
+          <textarea
+            v-model="output"
+            id="output"
+            name="output"
+            spellcheck
+            rows="20"
+            title="Conversion Output here."
+            placeholder="Conversion Output here."
+            readonly
+          ></textarea>
+        </div>
       </FormWrapper>
     </div>
   </section>
@@ -252,6 +293,30 @@ const updateOutput = async () => {
 }
 
 watch([$everyone, $type, $url, $date, $zhTW, $zhCN], updateOutput)
+
+ref: content = ''
+ref: target = ''
+ref: output = ''
+
+const convert = async () => {
+  const wikiUrl = 'https://community.fandom.com/zh/api.php'
+  const param = new URLSearchParams()
+  param.append('action', 'parse')
+  param.append('text', '{{NoteTA}}FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__' + content.replace(/\n/g, 'FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK') + '__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END')
+  param.append('variant', target)
+  param.append('format', 'json')
+  param.append('contentmodel', 'wikitext')
+  fetch('https://cors-anywhere.herokuapp.com/' + wikiUrl + '?' + param.toString(), {headers: {
+    'x-requested-with': 'fdzhant <https://github.com/Dianliang233/fandom-zh-announcements-tool>'
+  }}).then(async (req) => {
+    let result = await req.json()
+    let out = result.parse.text['*']
+    output = out.replace(/(.)*FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__/s, '').replace(/__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END(.)*/s, '').replace(/FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK/g, '\n')
+  }).catch((err) => {
+    console.error(err)
+    output = 'Error:\n' + err.toString()
+  })
+}
 </script>
 
 <style>
