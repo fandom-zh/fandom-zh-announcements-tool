@@ -104,7 +104,7 @@
           ></textarea>
         </div>
         <div>
-          <label for="Line">LQA</label>
+          <label for="lqa">LQA</label>
           <textarea
             v-model="lqa"
             id="lqa"
@@ -122,12 +122,21 @@
   <section>
     <h2>Language Conversion</h2>
     <div id="lc">
-      <FormWrapper title="WIP">
-        A work in progress.
+      <FormWrapper title="Input">
+
       </FormWrapper>
     </div>
   </section>
-  
+  <footer>
+    <div>
+      <div id="disclaimer">
+        Powered by Fandom ZH Team. Not an official Fandom product. Not owned or affiliated with Fandom, Inc.
+      </div>
+      <div id="github">
+        <a href="https://github.com/Dianliang233/fandom-zh-announcements-tool">GitHub</a>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script setup>
@@ -271,5 +280,31 @@ label {
 fieldset > div {
   display: inline-block;
   margin: 5px;
+}
+footer {
+  background: #002a32;
+  font-size: 12px;
+  min-height: 50px;
+  text-align: center;
+  color: #fff;
+}
+footer > div {
+  background: rgba(38,38,38,.5);
+  height: 100%;
+  padding: 18px 0;
+}
+#github {
+  margin: 14px 18px 0;
+  padding-top: 10px;
+  border-top: 1px solid #656e78;
+  font-weight: 700;
+}
+#github > a,
+#github > a:visited {
+  color: #00d6d6;
+  text-decoration: none;
+}
+#github > a:hover {
+  color: #fff;
 }
 </style>
