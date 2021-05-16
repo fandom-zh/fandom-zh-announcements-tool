@@ -6,4 +6,4 @@ Created by the Fandom ZH Team, this is the solution of posting announcements on 
 
 Netlify: <https://fdzh-announcement.netlify.app/>
 
-Not an official Fandom product. Not owned or affiliated with Fandom, Inc.
+Not an official Fandom product. Not operated by or affiliated with Fandom, Inc.
