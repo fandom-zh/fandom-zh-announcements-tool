@@ -242,6 +242,9 @@ const updateOutput = async () => {
   }
 
   if (zhTW) {
+    msgDC.push('*[ zh-Hant-TW ]*')
+    msgLN.push('[ zh-Hant-TW ]')
+    msgTG.push('__[ zh-Hant-TW ]__')
     if (type) {
       msgDC.push(`**[ ${typeTable[type].zhTW} ]**`)
       msgLN.push(`[ ${typeTable[type].zhTW} ]`)
@@ -261,6 +264,9 @@ const updateOutput = async () => {
   }
 
   if (zhCN) {
+    msgDC.push('*[ zh-Hans-CN ]*')
+    msgLN.push('[ zh-Hans-CN ]')
+    msgTG.push('__[ zh-Hans-CN ]__')
     if (type) {
       msgDC.push(`**[ ${typeTable[type].zhCN} ]**`)
       msgLN.push(`[ ${typeTable[type].zhCN} ]`)
