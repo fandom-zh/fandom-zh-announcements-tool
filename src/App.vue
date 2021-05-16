@@ -14,17 +14,22 @@
         </div>
         <div>
           <label for="url">URL</label>
-          <input v-model="url" type="url" name="url" id="url">
+          <input v-model="url" type="url" name="url" id="url" />
         </div>
         <div>
           <label for="date">Date</label>
-          <input v-model="date" type="date" name="date" id="date">
+          <input v-model="date" type="date" name="date" id="date" />
         </div>
         <div>
           <label for="everyone">@everyone</label>
-          <input v-model="everyone" type="checkbox" name="everyone" id="everyone">
+          <input
+            v-model="everyone"
+            type="checkbox"
+            name="everyone"
+            id="everyone"
+          />
         </div>
-        <br>
+        <br />
         <div>
           <label for="zh-tw">zh-Hant-TW</label>
           <textarea
@@ -134,7 +139,7 @@
           <label for="target">NoteTA CGroup</label>
           wip
         </div>
-        <br>
+        <br />
         <div>
           <label for="content">Content</label>
           <textarea
@@ -171,169 +176,219 @@
   <footer>
     <div>
       <div id="disclaimer">
-        Powered by Fandom ZH Team. Not an official Fandom product. Not operated by or affiliated with Fandom, Inc.
+        Powered by Fandom ZH Team. Not an official Fandom product. Not operated
+        by or affiliated with Fandom, Inc.
       </div>
       <div id="github">
-        <a href="https://github.com/Dianliang233/fandom-zh-announcements-tool">GitHub</a>
+        <a href="https://github.com/Dianliang233/fandom-zh-announcements-tool"
+          >GitHub</a
+        >
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
-import FormWrapper from './components/FormWrapper.vue'
-import AppBar from './components/AppBar.vue'
-import { watch } from 'vue'
+import FormWrapper from "./components/FormWrapper.vue";
+import AppBar from "./components/AppBar.vue";
+import { watch } from "vue";
 
-ref: type = ''
-ref: url = ''
-ref: date = ''
-ref: zhTW = ''
-ref: zhCN = ''
-ref: discord = ''
-ref: telegram = ''
-ref: line = ''
-ref: qq = ''
-ref: lqa = ''
-ref: everyone = ''
+ref: type = "";
+ref: url = "";
+ref: date = "";
+ref: zhTW = "";
+ref: zhCN = "";
+ref: discord = "";
+ref: telegram = "";
+ref: line = "";
+ref: qq = "";
+ref: lqa = "";
+ref: everyone = "";
 
 const updateOutput = async () => {
-  let msgDC = []
-  let msgLN = []
-  let msgTG = []
-  let msgQQ = []
+  let msgDC = [];
+  let msgLN = [];
+  let msgTG = [];
+  let msgQQ = [];
 
   if (everyone) {
-    msgDC.push('@everyone \n')
+    msgDC.push("@everyone \n");
   }
   // Date
   const dayTable = {
-    0: 'Sun',
-    1: 'Mon',
-    2: 'Tue',
-    3: 'Wed',
-    4: 'Thu',
-    5: 'Fri',
-    6: 'Sat'
-  }
+    0: "Sun",
+    1: "Mon",
+    2: "Tue",
+    3: "Wed",
+    4: "Thu",
+    5: "Fri",
+    6: "Sat",
+  };
   if (date) {
-    let time = new Date(date)
-    let timeParsed = date.replace(/-/g, '/') + ' ' + dayTable[time.getDay()] + '.'
-    msgDC.push(timeParsed)
-    msgLN.push(timeParsed)
-    msgTG.push(timeParsed)
-    msgQQ.push(timeParsed)
+    let time = new Date(date);
+    let timeParsed =
+      date.replace(/-/g, "/") + " " + dayTable[time.getDay()] + ".";
+    msgDC.push(timeParsed);
+    msgLN.push(timeParsed);
+    msgTG.push(timeParsed);
+    msgQQ.push(timeParsed);
   }
 
   // Type Prefix
   const typeTable = {
     news: {
-      zhTW: '公告',
-      zhCN: '公告'
+      zhTW: "公告",
+      zhCN: "公告",
     },
     help: {
-      zhTW: '説明',
-      zhCN: '帮助'
+      zhTW: "説明",
+      zhCN: "帮助",
     },
     breaking: {
-      zhTW: '重大公告',
-      zhCN: '重大公告'
+      zhTW: "重大公告",
+      zhCN: "重大公告",
     },
-  }
+  };
 
   if (zhTW) {
-    msgDC.push('*[ zh-Hant-TW ]*')
-    msgLN.push('[ zh-Hant-TW ]')
-    msgTG.push('__[ zh-Hant-TW ]__')
+    msgDC.push("*[ zh-Hant-TW ]*");
+    msgLN.push("[ zh-Hant-TW ]");
+    msgTG.push("__[ zh-Hant-TW ]__");
     if (type) {
-      msgDC.push(`**[ ${typeTable[type].zhTW} ]**`)
-      msgLN.push(`[ ${typeTable[type].zhTW} ]`)
-      msgTG.push(`**[ ${typeTable[type].zhTW} ]**`)
+      msgDC.push(`**[ ${typeTable[type].zhTW} ]**`);
+      msgLN.push(`[ ${typeTable[type].zhTW} ]`);
+      msgTG.push(`**[ ${typeTable[type].zhTW} ]**`);
     }
-    let zhTWPlaintext = zhTW.replace(/((?<!\\)\*)*/g, '').replace(/((?<!\\)`*){1}/g, '').replace(/\\(?=(`|\\|\*))/g, '')
-    let zhTWTG = zhTW.replace(/(?<!\\)(?<!\*)\*(?!\*)/g, '__')
+    let zhTWPlaintext = zhTW
+      .replace(/((?<!\\)\*)*/g, "")
+      .replace(/((?<!\\)`*){1}/g, "")
+      .replace(/\\(?=(`|\\|\*))/g, "");
+    let zhTWTG = zhTW.replace(/(?<!\\)(?<!\*)\*(?!\*)/g, "__");
 
-    msgDC.push(zhTW)
-    msgLN.push(zhTWPlaintext)
-    msgTG.push(zhTWTG)
+    msgDC.push(zhTW);
+    msgLN.push(zhTWPlaintext);
+    msgTG.push(zhTWTG);
+
+    if (url) {
+      let urlEncoded = encodeURI(url);
+      let urlDecoded = decodeURI(url);
+      msgDC.push("\n" + urlDecoded);
+      msgLN.push("\n" + urlDecoded);
+      msgQQ.push("\n" + urlEncoded);
+      msgTG.push("\n" + urlDecoded);
+    }
+
     if (zhCN) {
-      msgDC.push('\n----\n')
-      msgLN.push('\n----\n')
-      msgTG.push('\n----\n')
+      msgDC.push("\n----\n");
+      msgLN.push("\n----\n");
+      msgTG.push("\n----\n");
     }
   }
 
   if (zhCN) {
-    msgDC.push('*[ zh-Hans-CN ]*')
-    msgLN.push('[ zh-Hans-CN ]')
-    msgTG.push('__[ zh-Hans-CN ]__')
+    msgDC.push("*[ zh-Hans-CN ]*");
+    msgLN.push("[ zh-Hans-CN ]");
+    msgTG.push("__[ zh-Hans-CN ]__");
     if (type) {
-      msgDC.push(`**[ ${typeTable[type].zhCN} ]**`)
-      msgLN.push(`[ ${typeTable[type].zhCN} ]`)
-      msgTG.push(`**[ ${typeTable[type].zhCN} ]**`)
+      msgDC.push(`**[ ${typeTable[type].zhCN} ]**`);
+      msgLN.push(`[ ${typeTable[type].zhCN} ]`);
+      msgTG.push(`**[ ${typeTable[type].zhCN} ]**`);
     }
-    let zhCNPlaintext = zhCN.replace(/((?<!\\)\*)*/g, '').replace(/((?<!\\)`*){1}/g, '').replace(/\\(?=(`|\\|\*))/g, '')
-    let zhCNTG = zhCN.replace(/(?<!\\)(?<!\*)\*(?!\*)/g, '__')
+    let zhCNPlaintext = zhCN
+      .replace(/((?<!\\)\*)*/g, "")
+      .replace(/((?<!\\)`*){1}/g, "")
+      .replace(/\\(?=(`|\\|\*))/g, "");
+    let zhCNTG = zhCN.replace(/(?<!\\)(?<!\*)\*(?!\*)/g, "__");
 
-    msgDC.push(zhCN)
-    msgLN.push(zhCNPlaintext)
-    msgQQ.push(zhCNPlaintext)
-    msgTG.push(zhCNTG)
-  }
+    msgDC.push(zhCN);
+    msgLN.push(zhCNPlaintext);
+    msgQQ.push(zhCNPlaintext);
+    msgTG.push(zhCNTG);
 
-  if (url) {
-    let urlEncoded = encodeURI(url)
-    let urlDecoded = decodeURI(url)
-    msgDC.push('\n' + urlDecoded)
-    msgLN.push('\n' + urlDecoded)
-    msgQQ.push('\n' + urlEncoded)
-    msgTG.push('\n' + urlDecoded)
+    if (url) {
+      let urlEncoded = encodeURI(url);
+      let urlDecoded = decodeURI(url);
+      msgDC.push("\n" + urlDecoded);
+      msgLN.push("\n" + urlDecoded);
+      msgQQ.push("\n" + urlEncoded);
+      msgTG.push("\n" + urlDecoded);
+    }
   }
 
   // Apply it
-  discord = msgDC.join('\n')
-  telegram = msgTG.join('\n')
-  line = msgLN.join('\n')
-  qq = msgQQ.join('\n')
-  lqa = 'Discord\n```md\n' + discord + '\n```\nTelegram\n```md\n' + telegram + '```\nLINE\n```\n' + line + '```\nQQ\n```\n' + qq + '\n```'
-}
+  discord = msgDC.join("\n");
+  telegram = msgTG.join("\n");
+  line = msgLN.join("\n");
+  qq = msgQQ.join("\n");
+  lqa =
+    "Discord\n```md\n" +
+    discord +
+    "\n```\nTelegram\n```md\n" +
+    telegram +
+    "```\nLINE\n```\n" +
+    line +
+    "```\nQQ\n```\n" +
+    qq +
+    "\n```";
+};
 
-watch([$everyone, $type, $url, $date, $zhTW, $zhCN], updateOutput)
+watch([$everyone, $type, $url, $date, $zhTW, $zhCN], updateOutput);
 
-ref: content = ''
-ref: target = ''
-ref: output = ''
+ref: content = "";
+ref: target = "";
+ref: output = "";
 
 const convert = async () => {
-  const wikiUrl = 'https://community.fandom.com/zh/api.php'
-  const param = new URLSearchParams()
-  param.append('action', 'parse')
-  param.append('text', '{{NoteTA}}FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__' + content.replace(/\n/g, 'FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK') + '__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END')
-  param.append('variant', target)
-  param.append('format', 'json')
-  param.append('contentmodel', 'wikitext')
-  fetch('https://cors-anywhere.herokuapp.com/' + wikiUrl + '?' + param.toString(), {headers: {
-    'x-requested-with': 'fdzhant <https://github.com/Dianliang233/fandom-zh-announcements-tool>'
-  }}).then(async (req) => {
-    let result = await req.json()
-    let out = result.parse.text['*']
-    output = out.replace(/(.)*FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__/s, '').replace(/__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END(.)*/s, '').replace(/FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK/g, '\n')
-  }).catch((err) => {
-    console.error(err)
-    output = 'Error:\n' + err.toString()
-  })
-}
+  const wikiUrl = "https://community.fandom.com/zh/api.php";
+  const param = new URLSearchParams();
+  param.append("action", "parse");
+  param.append(
+    "text",
+    "{{NoteTA}}FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__" +
+      content.replace(/\n/g, "FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK") +
+      "__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END"
+  );
+  param.append("variant", target);
+  param.append("format", "json");
+  param.append("contentmodel", "wikitext");
+  fetch(
+    "https://cors-anywhere.herokuapp.com/" + wikiUrl + "?" + param.toString(),
+    {
+      headers: {
+        "x-requested-with":
+          "fdzhant <https://github.com/Dianliang233/fandom-zh-announcements-tool>",
+      },
+    }
+  )
+    .then(async (req) => {
+      let result = await req.json();
+      let out = result.parse.text["*"];
+      output = out
+        .replace(/(.)*FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__/s, "")
+        .replace(/__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END(.)*/s, "")
+        .replace(/FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK/g, "\n");
+    })
+    .catch((err) => {
+      console.error(err);
+      output = "Error:\n" + err.toString();
+    });
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Rubik', Helvetica, Arial, sans-serif;
+  font-family: "Rubik", Helvetica, Arial, sans-serif;
   margin-top: 65px;
 }
 h2 {
   margin-left: 15px;
   display: inline-block;
-  background-image: linear-gradient(to top,rgba(0,155,190,0.15) 54%,transparent 54%,transparent 100%);
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 155, 190, 0.15) 54%,
+    transparent 54%,
+    transparent 100%
+  );
 }
 body {
   margin: 0;
@@ -360,7 +415,7 @@ footer {
   color: #fff;
 }
 footer > div {
-  background: rgba(38,38,38,.5);
+  background: rgba(38, 38, 38, 0.5);
   height: 100%;
   padding: 18px 0;
 }

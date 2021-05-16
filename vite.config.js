@@ -11,7 +11,7 @@ export default defineConfig({
       targets: ["defaults", "not IE 11"],
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: "autoUpdate",
       manifest: {
         name: "Fandom ZH Team Announcement Tool",
         short_name: "FDZH Announcement",
