@@ -351,15 +351,8 @@ const convert = async () => {
   param.append("variant", target);
   param.append("format", "json");
   param.append("contentmodel", "wikitext");
-  fetch(
-    "https://cors-anywhere.herokuapp.com/" + wikiUrl + "?" + param.toString(),
-    {
-      headers: {
-        "x-requested-with":
-          "fdzhant <https://github.com/Dianliang233/fandom-zh-announcements-tool>",
-      },
-    }
-  )
+  param.append("origin", "*");
+  fetch(wikiUrl + "?" + param.toString())
     .then(async (req) => {
       let result = await req.json();
       let out = result.parse.text["*"];
