@@ -12,7 +12,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
-      menifest: {
+      manifest: {
         name: "Fandom ZH Team Announcement Tool",
         short_name: "FDZH Announcement",
         description:
