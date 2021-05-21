@@ -320,16 +320,20 @@ const updateOutput = async () => {
   telegram = msgTG.join("\n");
   line = msgLN.join("\n");
   qq = msgQQ.join("\n");
-  lqa =
-    "Discord\n```md\n" +
-    discord +
-    "\n```\nTelegram\n```md\n" +
-    telegram +
-    "```\nLINE\n```\n" +
-    line +
-    "```\nQQ\n```\n" +
-    qq +
-    "\n```";
+  if (everyone || type || url || date || zhTW || zhCN) {
+    lqa =
+      "Discord\n```md\n" +
+      discord +
+      "\n```\nTelegram\n```md\n" +
+      telegram +
+      "```\nLINE\n```\n" +
+      line +
+      "```\nQQ\n```\n" +
+      qq +
+      "\n```";
+  } else {
+    lqa = "";
+  }
 };
 
 watch([$everyone, $type, $url, $date, $zhTW, $zhCN], updateOutput);
