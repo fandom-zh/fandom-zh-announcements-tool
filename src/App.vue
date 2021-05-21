@@ -270,11 +270,9 @@ const updateOutput = async () => {
     msgTG.push(zhTWTG);
 
     if (url) {
-      let urlEncoded = encodeURI(url);
       let urlDecoded = decodeURI(url);
       msgDC.push("\n" + urlDecoded);
       msgLN.push("\n" + urlDecoded);
-      msgQQ.push("\n" + urlEncoded);
       msgTG.push("\n" + urlDecoded);
     }
 
