@@ -190,7 +190,7 @@
 
 <script setup>
 import FormWrapper from "./components/FormWrapper.vue";
-import AppBar from "./components/AppBar.vue";
+import AppBar from "./components/TheAppBar.vue";
 import { watch } from "vue";
 
 ref: type = "";
