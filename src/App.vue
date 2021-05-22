@@ -1,133 +1,196 @@
 <template>
   <AppBar />
-  <FormSection name="announcements" title="Announcements">
-    <FormWrapper title="Input (Discord Format)" id="FormInput">
-      <FormInputCell label="Type of Announcement" name="type">
-        <FormSelect name="type">
-          <option value="news">Annoucement / 公告</option>
-          <option value="help">Help / 帮助 / 說明</option>
-          <option value="breaking">Breaking News / 重大公告</option>
-        </FormSelect>
-      </FormInputCell>
-      <FormInputCell label="URL" name="url">
-        <FormInput type="url" name="url" />
-      </FormInputCell>
-      <FormInputCell label="Date" name="date">
-        <FormInput type="date" name="date" />
-      </FormInputCell>
-      <FormInputCell label="@everyone" name="everyone">
-        <FormInput
-          type="checkbox"
-          name="everyone"
-        />
-      </FormInputCell>
-      <br />
-      <FormInputCell label="zh-Hant-TW" name="zhTW">
-        <FormTextarea
-          name="zhTW"
-          tooltip="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below. Supports **, * and ` decorator."
-        ></FormTextarea>
-      </FormInputCell>
-      <FormInputCell label="zh-Hans-CN" name="zhCN">
-        <FormTextarea
-          name="zhCN"
-          tooltip="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below. Supports **, * and ` decorator."
-        ></FormTextarea>
-      </FormInputCell>
-    </FormWrapper>
-    <FormWrapper title="Output">
-      <FormInputCell label="Discord" name="discord">
-        <FormTextarea
-          name="discord"
-          tooltip="Output for Discord."
-          readonly
-        ></FormTextarea>
-      </FormInputCell>
-      <FormInputCell label="Telegram" name="telegram">
-        <FormTextarea
-          name="telegram"
-          tooltip="Output for Telegram."
-          readonly
-        ></FormTextarea>
-      </FormInputCell>
-      <FormInputCell label="LINE" name="line">
-        <FormTextarea
-          v-model="line"
-          id="line"
-          name="line"
-          spellcheck
-          rows="20"
-          title="Output for LINE."
-          placeholder="Output for LINE."
-          readonly
-        ></FormTextarea>
-      </FormInputCell>
-      <FormInputCell label="QQ" name="qq">
-        <FormTextarea
-          name="qq"
-          tooltip="Output for QQ."
-          readonly
-        ></FormTextarea>
-      </FormInputCell>
-      <FormInputCell label="LQA" name="lqa">
-        <FormTextarea
-          name="lqa"
-          tooltip="Output for LQA."
-          readonly
-        ></FormTextarea>
-      </FormInputCell>
-    </FormWrapper>
-  </FormSection>
-  <FormSection name="lc" title="Language Conversion">
-    <FormWrapper title="Input">
-      <FormInputCell label="Target Variant" name="target">
-        <FormSelect name="target">
-          <option value="zh-TW">zh-TW / 臺灣正體</option>
-          <option value="zh-CN">zh-CN / 大陆简体</option>
-        </FormSelect>
-      </FormInputCell>
-      <FormInputCell label="NoteTA CGroup" name="target">
-        wip
-      </FormInputCell>
-      <br />
-      <FormInputCell label="Content" name="content">
-        <FormTextarea
-          name="content"
-          tooltip="Please put the message you want to convert here. Support MediaWiki -{}- conversion settings."
-        ></FormTextarea>
-      </FormInputCell>
-      <FormInputCell>
-        <button @click="convert()">Submit</button>
-      </FormInputCell>
-    </FormWrapper>
-    <FormWrapper title="Output">
-      <div>
-        <label for="output">Conversion Output</label>
-        <FormTextarea
-          v-model="output"
-          id="output"
-          name="output"
-          spellcheck
-          rows="20"
-          title="Conversion Output here."
-          placeholder="Conversion Output here."
-          readonly
-        ></FormTextarea>
+  <section id="announcements">
+    <h2 id="output">Annoucements</h2>
+    <div class="form">
+      <FormWrapper title="Input (Discord Format)" form-id="input">
+        <div>
+          <label for="type">Type of Announcement</label>
+          <select v-model="type" name="type" id="type">
+            <option value="news">Annoucement / 公告</option>
+            <option value="help">Help / 帮助 / 說明</option>
+            <option value="breaking">Breaking News / 重大公告</option>
+          </select>
+        </div>
+        <div>
+          <label for="url">URL</label>
+          <input v-model="url" type="url" name="url" id="url" />
+        </div>
+        <div>
+          <label for="date">Date</label>
+          <input v-model="date" type="date" name="date" id="date" />
+        </div>
+        <div>
+          <label for="everyone">@everyone</label>
+          <input
+            v-model="everyone"
+            type="checkbox"
+            name="everyone"
+            id="everyone"
+          />
+        </div>
+        <br />
+        <div>
+          <label for="zh-tw">zh-Hant-TW</label>
+          <textarea
+            v-model="zhTW"
+            id="zh-tw"
+            name="zh-tw"
+            spellcheck
+            rows="20"
+            title="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below (WIP). Supports **, * and ` decorator."
+            placeholder="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below (WIP). Supports **, * and ` decorator."
+          ></textarea>
+        </div>
+        <div>
+          <label for="zh-cn">zh-Hans-CN</label>
+          <textarea
+            v-model="zhCN"
+            id="zh-cn"
+            name="zh-cn"
+            spellcheck
+            rows="20"
+            title="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below (WIP). Supports **, * and ` decorator."
+            placeholder="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below (WIP). Supports **, * and ` decorator."
+          ></textarea>
+        </div>
+      </FormWrapper>
+      <FormWrapper title="Output">
+        <div>
+          <label for="discord">Discord</label>
+          <textarea
+            v-model="discord"
+            id="discord"
+            name="discord"
+            spellcheck
+            rows="20"
+            title="Output for Discord."
+            placeholder="Output for Discord."
+            readonly
+          ></textarea>
+        </div>
+        <div>
+          <label for="telegram">Telegram</label>
+          <textarea
+            v-model="telegram"
+            id="telegram"
+            name="telegram"
+            spellcheck
+            rows="20"
+            title="Output for Telegram."
+            placeholder="Output for Telegram."
+            readonly
+          ></textarea>
+        </div>
+        <div>
+          <label for="line">LINE</label>
+          <textarea
+            v-model="line"
+            id="line"
+            name="line"
+            spellcheck
+            rows="20"
+            title="Output for LINE."
+            placeholder="Output for LINE."
+            readonly
+          ></textarea>
+        </div>
+        <div>
+          <label for="qq">QQ</label>
+          <textarea
+            v-model="qq"
+            id="qq"
+            name="qq"
+            spellcheck
+            rows="20"
+            title="Output for QQ."
+            placeholder="Output for QQ."
+            readonly
+          ></textarea>
+        </div>
+        <div>
+          <label for="lqa">LQA</label>
+          <textarea
+            v-model="lqa"
+            id="lqa"
+            name="lqa"
+            spellcheck
+            rows="20"
+            title="Output for LQA."
+            placeholder="Output for LQA."
+            readonly
+          ></textarea>
+        </div>
+      </FormWrapper>
+    </div>
+  </section>
+  <section>
+    <h2>Language Conversion</h2>
+    <div id="lc">
+      <FormWrapper title="Input">
+        <div>
+          <label for="target">Target Variant</label>
+          <select v-model="target" name="target" id="target">
+            <option value="zh-TW">zh-TW / 臺灣正體</option>
+            <option value="zh-CN">zh-CN / 大陆简体</option>
+          </select>
+        </div>
+        <div>
+          <label for="target">NoteTA CGroup</label>
+          wip
+        </div>
+        <br />
+        <div>
+          <label for="content">Content</label>
+          <textarea
+            v-model="content"
+            id="zh-cn"
+            name="zh-cn"
+            spellcheck
+            rows="20"
+            title="Please put the message you want to convert here. Support MediaWiki -{}- conversion settings."
+            placeholder="Please put the message you want to convert here. Support MediaWiki -{}- conversion settings."
+          ></textarea>
+        </div>
+        <div>
+          <button @click="convert()">Submit</button>
+        </div>
+      </FormWrapper>
+      <FormWrapper title="Output">
+        <div>
+          <label for="output">Conversion Output</label>
+          <textarea
+            v-model="output"
+            id="output"
+            name="output"
+            spellcheck
+            rows="20"
+            title="Conversion Output here."
+            placeholder="Conversion Output here."
+            readonly
+          ></textarea>
+        </div>
+      </FormWrapper>
+    </div>
+  </section>
+  <footer>
+    <div>
+      <div id="disclaimer">
+        Powered by Fandom ZH Team. Not an official Fandom product. Not operated
+        by or affiliated with Fandom, Inc.
       </div>
-    </FormWrapper>
-  </FormSection>
-  <AppFooter />
+      <div id="github">
+        <a href="https://github.com/Dianliang233/fandom-zh-announcements-tool"
+          >GitHub</a
+        >
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script setup>
 import FormWrapper from "./components/FormWrapper.vue";
-import FormInputCell from "./components/FormInputCell.vue";
-import FormSection from "./components/FormSection.vue";
-import FormInput from "./components/FormInput.vue";
-import FormSelect from "./components/FormSelect.vue";
-import FormTextarea from "./components/FormTextarea.vue";
 import AppBar from "./components/TheAppBar.vue";
-import AppFooter from "./components/TheAppFooter.vue"
 import { watch } from "vue";
 
 ref: type = "";
@@ -312,8 +375,32 @@ const convert = async () => {
   font-family: "Rubik", Helvetica, Arial, sans-serif;
   margin-top: 65px;
 }
+h2 {
+  margin-left: 15px;
+  display: inline-block;
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 155, 190, 0.15) 54%,
+    transparent 54%,
+    transparent 100%
+  );
+}
 body {
   margin: 0;
+}
+legend {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+textarea {
+  resize: none;
+}
+label {
+  display: block;
+}
+fieldset > div {
+  display: inline-block;
+  margin: 5px;
 }
 footer {
   background: #002a32;
