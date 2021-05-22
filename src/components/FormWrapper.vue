@@ -1,6 +1,6 @@
 <template>
-  <fieldset :id="formId">
-    <legend>{{ title }}</legend>
+  <fieldset class="form-wrapper">
+    <legend class="form-legend">{{ title }}</legend>
 
     <slot></slot>
   </fieldset>
@@ -11,13 +11,16 @@ import { defineProps } from "vue";
 
 defineProps({
   title: String,
-  formId: String,
 });
 </script>
 
 <style scoped>
-fieldset {
+.form-wrapper {
   margin: 10px;
   display: inline-block;
+}
+.form-legend {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 </style>
