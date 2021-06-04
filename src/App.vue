@@ -158,7 +158,7 @@
       </FormWrapper>
       <FormWrapper title="Output">
         <div>
-          <label for="output">Conversion Output</label>
+          <label for="output">Output</label>
           <textarea
             v-model="output"
             id="output"
@@ -215,8 +215,8 @@ const updateOutput = async () => {
     /(用户博客|%E7%94%A8%E6%88%B7%E5%8D%9A%E5%AE%A2):/g,
     "User_blog:"
   );
-  let urlEncoded = encodeURI(urlConverted);
-  let urlDecoded = decodeURI(decodeURI(urlConverted));
+  let urlEncoded = encodeURI(decodeURI(urlConverted)); // Intended script design
+  let urlDecoded = decodeURI(urlConverted);
 
   if (everyone) {
     msgDC.push("@everyone \n");
