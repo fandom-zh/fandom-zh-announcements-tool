@@ -211,9 +211,12 @@ const updateOutput = async () => {
   let msgTG = [];
   let msgQQ = [];
 
-  let urlConverted = url.replace(/用户博客:/g, "User_blog:");
+  let urlConverted = url.replace(
+    /(用户博客|%E7%94%A8%E6%88%B7%E5%8D%9A%E5%AE%A2):/g,
+    "User_blog:"
+  );
   let urlEncoded = encodeURI(urlConverted);
-  let urlDecoded = decodeURI(urlConverted);
+  let urlDecoded = decodeURI(decodeURI(urlConverted));
 
   if (everyone) {
     msgDC.push("@everyone \n");
@@ -269,12 +272,6 @@ const updateOutput = async () => {
     msgLN.push(zhTWParsed.msgLN);
     msgTG.push(zhTWParsed.msgTG);
 
-    if (url) {
-      msgDC.push("\n" + urlDecoded);
-      msgLN.push("\n" + urlDecoded);
-      msgTG.push("\n" + urlDecoded);
-    }
-
     if (zhCN) {
       msgDC.push("\n----\n");
       msgLN.push("\n----\n");
@@ -297,13 +294,15 @@ const updateOutput = async () => {
     msgLN.push(zhCNParsed.msgLN);
     msgQQ.push(zhCNParsed.msgQQ);
     msgTG.push(zhCNParsed.msgTG);
+  }
 
-    if (url) {
-      msgDC.push("\n" + urlDecoded);
-      msgLN.push("\n" + urlDecoded);
-      msgQQ.push("\n" + urlEncoded);
-      msgTG.push("\n" + urlDecoded);
-    }
+  if ((zhTW || zhCN) && url) {
+    msgDC.push("\n" + urlDecoded);
+    msgLN.push("\n" + urlDecoded);
+    msgTG.push("\n" + urlDecoded);
+  }
+  if (zhCN && url) {
+    msgQQ.push("\n" + urlEncoded);
   }
 
   // Apply it
