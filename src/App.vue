@@ -263,7 +263,7 @@ const updateOutput = async () => {
       msgLN.push(`[ ${typeTable[type].zhTW} ]`);
       msgTG.push(`**[ ${typeTable[type].zhTW} ]**`);
     }
-    let zhTWParsed = await parse(zhTW)
+    let zhTWParsed = await parse(zhTW);
 
     msgDC.push(zhTWParsed.msgDC);
     msgLN.push(zhTWParsed.msgLN);
@@ -291,7 +291,7 @@ const updateOutput = async () => {
       msgLN.push(`[ ${typeTable[type].zhCN} ]`);
       msgTG.push(`**[ ${typeTable[type].zhCN} ]**`);
     }
-    let zhCNParsed = await parse(zhCN)
+    let zhCNParsed = await parse(zhCN);
 
     msgDC.push(zhCNParsed.msgDC);
     msgLN.push(zhCNParsed.msgLN);
@@ -327,29 +327,60 @@ const updateOutput = async () => {
   }
 
   async function parse(input) {
-    let tagDC = /(?<!\\)<dc>((.)*?)<\/dc>/g;
-    let tagQQ = /(?<!\\)<qq>((.)*?)<\/qq>/g;
-    let tagLN = /(?<!\\)<ln>((.)*?)<\/ln>/g;
-    let tagTG = /(?<!\\)<tg>((.)*?)<\/tg>/g;
+    const tagDC = /(?<!\\)<dc>((.)*?)<\/dc>/g;
+    const tagQQ = /(?<!\\)<qq>((.)*?)<\/qq>/g;
+    const tagLN = /(?<!\\)<ln>((.)*?)<\/ln>/g;
+    const tagTG = /(?<!\\)<tg>((.)*?)<\/tg>/g;
 
-    let msgDC = input.replace(tagDC, "$1").replace(tagQQ, "").replace(tagLN, "").replace(tagTG, "");
+    const noDC = /(?<!\\)<no-dc>((.)*?)<\/no-dc>/g;
+    const noQQ = /(?<!\\)<no-qq>((.)*?)<\/no-qq>/g;
+    const noLN = /(?<!\\)<no-ln>((.)*?)<\/no-ln>/g;
+    const noTG = /(?<!\\)<no-tg>((.)*?)<\/no-tg>/g;
+
+    let msgDC = input
+      .replace(tagDC, "$1")
+      .replace(tagQQ, "")
+      .replace(tagLN, "")
+      .replace(tagTG, "")
+      .replace(noDC, "")
+      .replace(noQQ, "$1")
+      .replace(noLN, "$1")
+      .replace(noTG, "$1");
     let msgQQ = input
       .replace(tagDC, "")
       .replace(tagLN, "")
       .replace(tagTG, "")
+      .replace(noDC, "$1")
+      .replace(noQQ, "")
+      .replace(noLN, "$1")
+      .replace(noTG, "$1")
       .replace(/((?<!\\)\*)*/g, "")
       .replace(/((?<!\\)`*){1}/g, "")
       .replace(/\\(?=(`|\\|\*))/g, "");
-    let msgLN = input.replace(tagDC, "").replace(tagQQ, "").replace(tagTG, "");
+    let msgLN = input
+      .replace(tagDC, "")
+      .replace(tagQQ, "")
+      .replace(tagTG, "")
+      .replace(noDC, "$1")
+      .replace(noQQ, "$1")
+      .replace(noLN, "")
+      .replace(noTG, "$1");
     let msgTG = input
       .replace(tagQQ, "")
       .replace(tagLN, "")
       .replace(tagDC, "")
+      .replace(noDC, "$1")
+      .replace(noQQ, "$1")
+      .replace(noLN, "$1")
+      .replace(noTG, "")
       .replace(/(?<!\\)(?<!\*)\*(?!\*)/g, "__");
-    
+
     return {
-      msgDC: msgDC, msgQQ: msgQQ, msgLN: msgLN, msgTG: msgTG
-    }
+      msgDC: msgDC,
+      msgQQ: msgQQ,
+      msgLN: msgLN,
+      msgTG: msgTG,
+    };
   }
 };
 
@@ -377,10 +408,12 @@ const convert = async () => {
     .then(async (req) => {
       let result = await req.json();
       let out = result.parse.text["*"];
-      output = out
+      const ele = document.createElement("textarea");
+      ele.innerHTML = out
         .replace(/(.)*FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__/s, "")
         .replace(/__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END(.)*/s, "")
         .replace(/FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK/g, "\n");
+      output = ele.innerText;
     })
     .catch((err) => {
       console.error(err);
