@@ -211,6 +211,10 @@ const updateOutput = async () => {
   let msgTG = [];
   let msgQQ = [];
 
+  let urlConverted = url.replace(/用户博客:/g, "User_blog:");
+  let urlEncoded = encodeURI(urlConverted);
+  let urlDecoded = decodeURI(urlConverted);
+
   if (everyone) {
     msgDC.push("@everyone \n");
   }
@@ -259,18 +263,13 @@ const updateOutput = async () => {
       msgLN.push(`[ ${typeTable[type].zhTW} ]`);
       msgTG.push(`**[ ${typeTable[type].zhTW} ]**`);
     }
-    let zhTWPlaintext = zhTW
-      .replace(/((?<!\\)\*)*/g, "")
-      .replace(/((?<!\\)`*){1}/g, "")
-      .replace(/\\(?=(`|\\|\*))/g, "");
-    let zhTWTG = zhTW.replace(/(?<!\\)(?<!\*)\*(?!\*)/g, "__");
+    let zhTWParsed = await parse(zhTW)
 
-    msgDC.push(zhTW);
-    msgLN.push(zhTWPlaintext);
-    msgTG.push(zhTWTG);
+    msgDC.push(zhTWParsed.msgDC);
+    msgLN.push(zhTWParsed.msgLN);
+    msgTG.push(zhTWParsed.msgTG);
 
     if (url) {
-      let urlDecoded = decodeURI(url);
       msgDC.push("\n" + urlDecoded);
       msgLN.push("\n" + urlDecoded);
       msgTG.push("\n" + urlDecoded);
@@ -292,20 +291,14 @@ const updateOutput = async () => {
       msgLN.push(`[ ${typeTable[type].zhCN} ]`);
       msgTG.push(`**[ ${typeTable[type].zhCN} ]**`);
     }
-    let zhCNPlaintext = zhCN
-      .replace(/((?<!\\)\*)*/g, "")
-      .replace(/((?<!\\)`*){1}/g, "")
-      .replace(/\\(?=(`|\\|\*))/g, "");
-    let zhCNTG = zhCN.replace(/(?<!\\)(?<!\*)\*(?!\*)/g, "__");
+    let zhCNParsed = await parse(zhCN)
 
-    msgDC.push(zhCN);
-    msgLN.push(zhCNPlaintext);
-    msgQQ.push(zhCNPlaintext);
-    msgTG.push(zhCNTG);
+    msgDC.push(zhCNParsed.msgDC);
+    msgLN.push(zhCNParsed.msgLN);
+    msgQQ.push(zhCNParsed.msgQQ);
+    msgTG.push(zhCNParsed.msgTG);
 
     if (url) {
-      let urlEncoded = encodeURI(url);
-      let urlDecoded = decodeURI(url);
       msgDC.push("\n" + urlDecoded);
       msgLN.push("\n" + urlDecoded);
       msgQQ.push("\n" + urlEncoded);
@@ -331,6 +324,32 @@ const updateOutput = async () => {
       "\n```";
   } else {
     lqa = "";
+  }
+
+  async function parse(input) {
+    let tagDC = /(?<!\\)<dc>((.)*?)<\/dc>/g;
+    let tagQQ = /(?<!\\)<qq>((.)*?)<\/qq>/g;
+    let tagLN = /(?<!\\)<ln>((.)*?)<\/ln>/g;
+    let tagTG = /(?<!\\)<tg>((.)*?)<\/tg>/g;
+
+    let msgDC = input.replace(tagDC, "$1").replace(tagQQ, "").replace(tagLN, "").replace(tagTG, "");
+    let msgQQ = input
+      .replace(tagDC, "")
+      .replace(tagLN, "")
+      .replace(tagTG, "")
+      .replace(/((?<!\\)\*)*/g, "")
+      .replace(/((?<!\\)`*){1}/g, "")
+      .replace(/\\(?=(`|\\|\*))/g, "");
+    let msgLN = input.replace(tagDC, "").replace(tagQQ, "").replace(tagTG, "");
+    let msgTG = input
+      .replace(tagQQ, "")
+      .replace(tagLN, "")
+      .replace(tagDC, "")
+      .replace(/(?<!\\)(?<!\*)\*(?!\*)/g, "__");
+    
+    return {
+      msgDC: msgDC, msgQQ: msgQQ, msgLN: msgLN, msgTG: msgTG
+    }
   }
 };
 
