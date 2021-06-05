@@ -38,8 +38,8 @@
             name="zh-tw"
             spellcheck
             rows="20"
-            title="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below (WIP). Supports **, * and ` decorator."
-            placeholder="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below (WIP). Supports **, * and ` decorator."
+            title="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below. Supports **, * and ` decorator."
+            placeholder="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below. Supports **, * and ` decorator."
           ></textarea>
         </div>
         <div>
@@ -50,8 +50,8 @@
             name="zh-cn"
             spellcheck
             rows="20"
-            title="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below (WIP). Supports **, * and ` decorator."
-            placeholder="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below (WIP). Supports **, * and ` decorator."
+            title="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below. Supports **, * and ` decorator."
+            placeholder="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below. Supports **, * and ` decorator."
           ></textarea>
         </div>
       </FormWrapper>
@@ -193,7 +193,7 @@ import FormWrapper from "./components/FormWrapper.vue";
 import AppBar from "./components/TheAppBar.vue";
 import { watch } from "vue";
 
-ref: type = "";
+ref: type = "news";
 ref: url = "";
 ref: date = "";
 ref: zhTW = "";
