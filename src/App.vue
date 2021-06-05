@@ -136,8 +136,24 @@
           </select>
         </div>
         <div>
-          <label for="target">NoteTA CGroup</label>
-          wip
+          <label for="cgroup">NoteTA CGroup</label>
+          <input
+            v-model="cgroup"
+            type="cgroup"
+            name="cgroup"
+            id="cgroup"
+            title="Use comma to separate multiple CGroups."
+            placeholder="Use comma to separate multiple CGroups."
+          />
+        </div>
+        <div>
+          <label for="wikiUrl">api.php</label>
+          <input
+            v-model="wikiUrl"
+            type="wikiUrl"
+            name="wikiUrl"
+            id="wikiUrl"
+          />
         </div>
         <br />
         <div>
@@ -191,7 +207,7 @@
 <script setup>
 import FormWrapper from "./components/FormWrapper.vue";
 import AppBar from "./components/TheAppBar.vue";
-import { watch } from "vue";
+import { ref, watch } from "vue";
 
 ref: type = "news";
 ref: url = "";
@@ -388,14 +404,26 @@ watch([$everyone, $type, $url, $date, $zhTW, $zhCN], updateOutput);
 ref: content = "";
 ref: target = "";
 ref: output = "";
+ref: cgroup = "";
+ref: wikiUrl = "https://community.fandom.com/zh/api.php"
 
 const convert = async () => {
-  const wikiUrl = "https://community.fandom.com/zh/api.php";
+  let noteTACfg;
+  if (cgroup) {
+    let groups = cgroup.split(",");
+    let n = 1;
+    let noteTA = [];
+    for (let g of groups) {
+      noteTA[n-1] = (`G${n}=${g}`);
+      n++;
+    }
+    noteTACfg = '|' + noteTA.join("|");
+  }
   const param = new URLSearchParams();
   param.append("action", "parse");
   param.append(
     "text",
-    "{{NoteTA}}FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__" +
+    "{{NoteTA"+ noteTACfg +"}}FANDOM_ZH_ANNOUNCEMENTS_TOOL_START__" +
       content.replace(/\n/g, "FANDOM_ZH_ANNOUNCEMENTS_TOOL_BREAK") +
       "__FANDOM_ZH_ANNOUNCEMENTS_TOOL_END"
   );
