@@ -132,7 +132,11 @@
           <label for="target">Target Variant</label>
           <select v-model="target" name="target" id="target">
             <option value="zh-TW">zh-TW / 臺灣正體</option>
+            <option value="zh-HK">zh-HK / 香港繁體</option>
+            <option value="zh-MO">zh-MO / 澳門繁體</option>
             <option value="zh-CN">zh-CN / 大陆简体</option>
+            <option value="zh-MY">zh-MY / 大马简体</option>
+            <option value="zh-SG">zh-SG / 新加坡简体</option>
           </select>
         </div>
         <div>
