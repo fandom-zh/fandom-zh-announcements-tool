@@ -27,6 +27,6 @@
 }
 #fandom-logo > div,
 #fandom-logo > svg {
-  vertical-align: middle;
+  vertical-align: text-bottom;
 }
 </style>
