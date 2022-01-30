@@ -13,7 +13,7 @@
 
 <style scoped>
 #app-bar {
-  background-color: #002a32;
+  background-color: #520044;
   padding: 14px 12px;
   position: fixed;
   top: 0;
