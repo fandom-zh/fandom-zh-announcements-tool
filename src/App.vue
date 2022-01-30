@@ -463,7 +463,7 @@ h2 {
   display: inline-block;
   background-image: linear-gradient(
     to top,
-    rgba(0, 155, 190, 0.15) 54%,
+    rgba(82, 0, 68, 0.15) 54%,
     transparent 54%,
     transparent 100%
   );
@@ -486,14 +486,13 @@ fieldset > div {
   margin: 5px;
 }
 footer {
-  background: #002a32;
+  background: #280033;
   font-size: 12px;
   min-height: 50px;
   text-align: center;
   color: #fff;
 }
 footer > div {
-  background: rgba(38, 38, 38, 0.5);
   height: 100%;
   padding: 18px 0;
 }
@@ -505,7 +504,7 @@ footer > div {
 }
 #github > a,
 #github > a:visited {
-  color: #00d6d6;
+  color: #ffc500;
   text-decoration: none;
 }
 #github > a:hover {
