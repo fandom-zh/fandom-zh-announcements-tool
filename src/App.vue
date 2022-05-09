@@ -277,7 +277,7 @@ const updateOutput = async () => {
     },
   };
 
-  if ((zhTW || zhCN) && (type == "news" || type == "breaking")) {
+  if ((zhTW || zhCN) && (type === "news" || type === "breaking")) {
     msgTG.push("#fandom公告\n\n");
   }
 
