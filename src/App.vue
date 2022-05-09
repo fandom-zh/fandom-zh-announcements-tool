@@ -277,9 +277,12 @@ const updateOutput = async () => {
     },
   };
 
+  if ((zhTW || zhCN) && (type == "news" || type == "breaking")) {
+    msgTG.push("#fandom公告\n\n");
+  }
+
   if (zhTW) {
     msgDC.push("*[ zh-Hant-TW ]*");
-    msgLN.push("[ zh-Hant-TW ]");
     msgTG.push("__[ zh-Hant-TW ]__");
     if (type) {
       msgDC.push(`**[ ${typeTable[type].zhTW} ]**`);
@@ -301,17 +304,14 @@ const updateOutput = async () => {
 
   if (zhCN) {
     msgDC.push("*[ zh-Hans-CN ]*");
-    msgLN.push("[ zh-Hans-CN ]");
     msgTG.push("__[ zh-Hans-CN ]__");
     if (type) {
       msgDC.push(`**[ ${typeTable[type].zhCN} ]**`);
-      msgLN.push(`[ ${typeTable[type].zhCN} ]`);
       msgTG.push(`**[ ${typeTable[type].zhCN} ]**`);
     }
     let zhCNParsed = await parse(zhCN);
 
     msgDC.push(zhCNParsed.msgDC);
-    msgLN.push(zhCNParsed.msgLN);
     msgQQ.push(zhCNParsed.msgQQ);
     msgTG.push(zhCNParsed.msgTG);
   }
