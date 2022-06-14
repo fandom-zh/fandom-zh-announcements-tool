@@ -1,13 +1,13 @@
 <template>
   <AppBar />
   <section id="announcements">
-    <h2 id="output">Annoucements</h2>
+    <h2 id="output">Announcements</h2>
     <div class="form">
       <FormWrapper title="Input (Discord Format)" form-id="input">
         <div>
           <label for="type">Type of Announcement</label>
           <select v-model="type" name="type" id="type">
-            <option value="news">Annoucement / 公告</option>
+            <option value="news">Announcement / 公告</option>
             <option value="help">Help / 帮助 / 說明</option>
             <option value="breaking">Breaking News / 重大公告</option>
           </select>
