@@ -38,8 +38,8 @@
             name="zh-tw"
             spellcheck
             rows="20"
-            title="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below. Supports **, * and ` decorator."
-            placeholder="Please put zh-TW message here. You can convert zh-CN to zh-TW using the conversion tool below. Supports **, * and ` decorator."
+            title="Please put zh-Hant-TW message here. You can convert zh-Hans-CN to zh-Hant-TW using the conversion tool below. Supports **, * and ` decorator."
+            placeholder="Please put zh-Hant-TW message here. You can convert zh-Hans-CN to zh-Hant-TW using the conversion tool below. Supports **, * and ` decorator."
           ></textarea>
         </div>
         <div>
@@ -50,8 +50,8 @@
             name="zh-cn"
             spellcheck
             rows="20"
-            title="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below. Supports **, * and ` decorator."
-            placeholder="Please put zh-CN message here. You can convert zh-TW to zh-CN using the conversion tool below. Supports **, * and ` decorator."
+            title="Please put zh-Hans-CN message here. You can convert zh-Hant-TW to zh-Hans-CN using the conversion tool below. Supports **, * and ` decorator."
+            placeholder="Please put zh-Hans-CN message here. You can convert zh-Hant-TW to zh-Hans-CN using the conversion tool below. Supports **, * and ` decorator."
           ></textarea>
         </div>
       </FormWrapper>
@@ -131,12 +131,12 @@
         <div>
           <label for="target">Target Variant</label>
           <select v-model="target" name="target" id="target">
-            <option value="zh-TW">zh-TW / 臺灣正體</option>
-            <option value="zh-HK">zh-HK / 香港繁體</option>
-            <option value="zh-MO">zh-MO / 澳門繁體</option>
-            <option value="zh-CN">zh-CN / 大陆简体</option>
-            <option value="zh-MY">zh-MY / 大马简体</option>
-            <option value="zh-SG">zh-SG / 新加坡简体</option>
+            <option value="zh-TW">zh-Hant-TW / 臺灣正體</option>
+            <option value="zh-HK">zh-Hant-HK / 香港繁體</option>
+            <option value="zh-MO">zh-Hant-MO / 澳門繁體</option>
+            <option value="zh-CN">zh-Hans-CN / 大陆简体</option>
+            <option value="zh-MY">zh-Hans-MY / 大马简体</option>
+            <option value="zh-SG">zh-Hans-SG / 新加坡简体</option>
           </select>
         </div>
         <div>
