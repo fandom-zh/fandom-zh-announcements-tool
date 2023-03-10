@@ -83,15 +83,28 @@
           ></textarea>
         </div>
         <div>
-          <label for="line">LINE</label>
+          <label for="line">Line</label>
           <textarea
             v-model="line"
             id="line"
             name="line"
             spellcheck
             rows="20"
-            title="Output for LINE."
-            placeholder="Output for LINE."
+            title="Output for Line."
+            placeholder="Output for Line."
+            readonly
+          ></textarea>
+        </div>
+        <div>
+          <label for="bahamut">Bahamut</label>
+          <textarea
+            v-model="bahamut"
+            id="bahamut"
+            name="bahamut"
+            spellcheck
+            rows="20"
+            title="Output for Bahamut."
+            placeholder="Output for Bahamut."
             readonly
           ></textarea>
         </div>
@@ -200,7 +213,7 @@
         by or affiliated with Fandom, Inc.
       </div>
       <div id="github">
-        <a href="https://github.com/Dianliang233/fandom-zh-announcements-tool"
+        <a href="https://github.com/fandom-zh/fandom-zh-announcements-tool"
           >GitHub</a
         >
       </div>
@@ -221,11 +234,13 @@ ref: zhCN = "";
 ref: discord = "";
 ref: telegram = "";
 ref: line = "";
+ref: bahamut = "";
 ref: qq = "";
 ref: lqa = "";
 ref: everyone = "";
 
 const updateOutput = async () => {
+  let msgBH = [];
   let msgDC = [];
   let msgLN = [];
   let msgTG = [];
@@ -255,6 +270,7 @@ const updateOutput = async () => {
     let time = new Date(date);
     let timeParsed =
       date.replace(/-/g, "/") + " " + dayTable[time.getDay()] + ".";
+    msgBH.push(timeParsed);
     msgDC.push(timeParsed);
     msgLN.push(timeParsed);
     msgTG.push(timeParsed);
@@ -291,6 +307,7 @@ const updateOutput = async () => {
     }
     let zhTWParsed = await parse(zhTW);
 
+    msgBH.push(zhTWParsed.msgBH);
     msgDC.push(zhTWParsed.msgDC);
     msgLN.push(zhTWParsed.msgLN);
     msgTG.push(zhTWParsed.msgTG);
@@ -328,6 +345,7 @@ const updateOutput = async () => {
   // Apply it
   discord = msgDC.join("\n");
   telegram = msgTG.join("\n");
+  bahamut = msgBH.join("\n");
   line = msgLN.join("\n");
   qq = msgQQ.join("\n");
   if (everyone || type || url || date || zhTW || zhCN) {
@@ -336,7 +354,9 @@ const updateOutput = async () => {
       discord +
       "\n```\nTelegram\n```md\n" +
       telegram +
-      "```\nLINE\n```\n" +
+      "```\nBahamut\n```\n" +
+      bahamut +
+      "```\nLine\n```\n" +
       line +
       "```\nQQ\n```\n" +
       qq +
@@ -348,48 +368,68 @@ const updateOutput = async () => {
   async function parse(input) {
     const tagDC = /(?<!\\)<dc>((.)*?)<\/dc>/g;
     const tagQQ = /(?<!\\)<qq>((.)*?)<\/qq>/g;
+    const tagBH = /(?<!\\)<bh>((.)*?)<\/bh>/g;
     const tagLN = /(?<!\\)<ln>((.)*?)<\/ln>/g;
     const tagTG = /(?<!\\)<tg>((.)*?)<\/tg>/g;
 
     const noDC = /(?<!\\)<no-dc>((.)*?)<\/no-dc>/g;
     const noQQ = /(?<!\\)<no-qq>((.)*?)<\/no-qq>/g;
+    const noBH = /(?<!\\)<no-bh>((.)*?)<\/no-bh>/g;
     const noLN = /(?<!\\)<no-ln>((.)*?)<\/no-ln>/g;
     const noTG = /(?<!\\)<no-tg>((.)*?)<\/no-tg>/g;
 
     let msgDC = input
       .replace(tagDC, "$1")
       .replace(tagQQ, "")
+      .replace(tagBH, "")
       .replace(tagLN, "")
       .replace(tagTG, "")
       .replace(noDC, "")
       .replace(noQQ, "$1")
+      .replace(noBH, "$1")
       .replace(noLN, "$1")
       .replace(noTG, "$1");
     let msgQQ = input
       .replace(tagDC, "")
+      .replace(tagBH, "")
       .replace(tagLN, "")
       .replace(tagTG, "")
       .replace(noDC, "$1")
       .replace(noQQ, "")
+      .replace(noBH, "$1")
       .replace(noLN, "$1")
       .replace(noTG, "$1")
       .replace(/((?<!\\)\*)*/g, "")
       .replace(/((?<!\\)`*){1}/g, "")
       .replace(/\\(?=(`|\\|\*))/g, "");
-    let msgLN = input
+    let msgBH = input
       .replace(tagDC, "")
       .replace(tagQQ, "")
+      .replace(tagLN, "")
       .replace(tagTG, "")
       .replace(noDC, "$1")
       .replace(noQQ, "$1")
+      .replace(noBH, "")
+      .replace(noLN, "$1")
+      .replace(noTG, "$1");
+    let msgLN = input
+      .replace(tagDC, "")
+      .replace(tagQQ, "")
+      .replace(tagBH, "")
+      .replace(tagTG, "")
+      .replace(noDC, "$1")
+      .replace(noQQ, "$1")
+      .replace(noBH, "$1")
       .replace(noLN, "")
       .replace(noTG, "$1");
     let msgTG = input
       .replace(tagQQ, "")
+      .replace(tagBH, "")
       .replace(tagLN, "")
       .replace(tagDC, "")
       .replace(noDC, "$1")
       .replace(noQQ, "$1")
+      .replace(noBH, "$1")
       .replace(noLN, "$1")
       .replace(noTG, "")
       .replace(/(?<!\\)(?<!\*)\*(?!\*)/g, "__");
@@ -397,6 +437,7 @@ const updateOutput = async () => {
     return {
       msgDC: msgDC,
       msgQQ: msgQQ,
+      msgBH: msgBH,
       msgLN: msgLN,
       msgTG: msgTG,
     };
