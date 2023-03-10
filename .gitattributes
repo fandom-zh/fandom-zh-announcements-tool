@@ -1,0 +1,10 @@
+*.csv eol=lf
+*.js eol=lf
+*.json eol=lf
+*.md eol=lf
+*.rs eol=lf
+*.svg eol=lf
+*.yml eol=lf
+*.png binary
+*.svg binary
+*.webp binary
