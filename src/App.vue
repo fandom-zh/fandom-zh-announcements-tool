@@ -302,6 +302,7 @@ const updateOutput = async () => {
     msgTG.push("__[ zh-Hant-TW ]__");
     if (type) {
       msgDC.push(`**[ ${typeTable[type].zhTW} ]**`);
+      msgBH.push(`[ ${typeTable[type].zhTW} ]`);
       msgLN.push(`[ ${typeTable[type].zhTW} ]`);
       msgTG.push(`**[ ${typeTable[type].zhTW} ]**`);
     }
