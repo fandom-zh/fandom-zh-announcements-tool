@@ -255,6 +255,7 @@ const updateOutput = async () => {
 
   if (everyone) {
     msgDC.push("@everyone \n");
+    msgLN.push("@All \n");
   }
   // Date
   const dayTable = {
