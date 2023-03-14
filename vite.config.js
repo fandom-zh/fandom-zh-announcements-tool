@@ -13,10 +13,10 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "Fandom ZH Team Announcement Tool",
+        name: "Fandom ZH Announcement Tool",
         short_name: "FDZH Announcement",
         description:
-          "Created by the Fandom ZH Team, this is the solution of posting announcements on multiple messaging platfroms with two language variants. Not an official Fandom product. Not operated by or affiliated with Fandom, Inc.",
+          "Created by the Fandom ZH Community Central Crew, this is the solution of posting announcements on multiple messaging platfroms with two language variants. Not an official Fandom product. Not operated by or affiliated with Fandom, Inc.",
         start_url: "/",
         display: "standalone",
         orientation: "any",

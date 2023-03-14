@@ -209,7 +209,7 @@
   <footer>
     <div>
       <div id="disclaimer">
-        Powered by Fandom ZH Team. Not an official Fandom product. Not operated
+        Powered by Fandom ZH Community Central Crew. Not an official Fandom product. Not operated
         by or affiliated with Fandom, Inc.
       </div>
       <div id="github">
